@@ -1,0 +1,103 @@
+# Extends integer class to 
+#  1. return the unit fraction, and 
+#  2. the length of the recurring cycle 
+#  3. the integer in words
+
+class Integer
+  
+  def unit_fraction
+    1.0/self
+  end
+  
+  def recurring_cycle_length
+    numerator = 1
+    result = ""
+    remainders_array = []
+    count = 1
+    length = 0
+    remainder = 0
+    append_zero = false
+    
+    while true
+      #puts "numerator is #{numerator}; result is #{result}, remainder is #{remainder}, remainders_array: #{remainders_array.join(', ')}"
+      if numerator > self
+        # divide numerator by self, send divisor to result, and remainder to numerator
+        factor, remainder = numerator.divmod(self)
+        result += factor.to_s
+        #puts "result is #{result}, remainder is #{remainder}, remainders_array: #{remainders_array.join(', ')}"
+        #puts "value of remainders_array.include?(remainder) is #{remainders_array.include?(remainder)}"
+        break if (remainder == 0) or (remainders_array.include?(remainder))
+        numerator = remainder
+        remainders_array << remainder
+        append_zero = false
+      else
+        # multiply numerator by 10; modify reminder and result appropriately
+        if result.empty?
+          result = "0." 
+        end
+        numerator *= 10
+        #puts "append_zero in else loop is #{append_zero}"
+        if append_zero 
+          result += '0'
+          remainders_array << 'x'*count
+          count += 1
+        end
+        append_zero = true
+         
+      end
+    end
+    #puts "result for #{self} is #{result}"
+    if remainder > 0
+      length = remainders_array.reverse.index(remainder) + 1
+    end
+    length
+  end
+
+  def to_words(separator=" ")
+    number_to_words = {:"one" => 1,
+                        :"two" => 2,
+                        :"three" => 3,
+                        :"four" => 4,
+                        :"five" => 5,
+                        :"six" => 6,
+                        :"seven" => 7,
+                        :"eight" => 8,
+                        :"nine" => 9,
+                        :"ten" => 10,
+                        :"eleven" => 11,
+                        :"twelve" => 12,
+                        :"thirteen" => 13,
+                        :"fourteen" => 14,
+                        :"fifteen" => 15,
+                        :"sixteen" => 16,
+                        :"seventeen" => 17,
+                        :"eighteen" => 18,
+                        :"nineteen" => 19,
+                        :"twenty" => 20,
+                        :"thirty" => 30,
+                        :"forty" => 40,
+                        :"fifty" => 50,
+                        :"sixty" => 60,
+                        :"seventy" => 70,
+                        :"eighty" => 80,
+                        :"ninety" => 90,
+                        :"hundred" => 100,
+                        :"thousand" => 1000}
+    
+    if (self < 100 ) and number_to_words.has_value?(self)
+      number_to_words.index(self)
+    elsif (self > 20) and (self < 100)
+      number_to_words.index((self/10)*10).to_s + separator + number_to_words.index(self.modulo(10)).to_s
+    elsif (self >= 100) and (self < 1000) and (self.modulo(100) == 0)
+      (self/100).to_words.to_s + separator + "hundred"
+    elsif (self >= 100) and (self < 1000) and (self.modulo(100) > 0)
+      number_to_words.index(self/100).to_s + separator + "hundred" + 
+         separator + "and" + separator + (self.modulo(100)).to_words(separator).to_s
+    elsif (self == 1000)
+      "one" + separator + "thousand"
+    else
+      number_to_words.index(self/1000).to_s + separator + "thousand" + separator + (self.modulo(1000)).to_words(separator).to_s
+    end
+  end
+  
+end
