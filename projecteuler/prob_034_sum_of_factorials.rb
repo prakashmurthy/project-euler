@@ -4,16 +4,7 @@
 
 # Assuming an upper bound of 1000000 (don't know the logic of the upper bound)
 
-class Integer
-  def factorial 
-    if self <= 1
-      1
-    else 
-      self * ( self -1 ).factorial
-    end
-  end
-end
-
+require "../lib/factorial"
 
 (10..1000000).each do |num|
   total = 0
