@@ -5,6 +5,31 @@
 
 class Integer
   
+  def palindrome? 
+    reverse_number = self.to_s.reverse.to_i
+    reverse_number == self
+  end
+  
+  def binary_representation
+    number_of_digits_in_binary = 0
+    while true
+      break if self < 2**(number_of_digits_in_binary)
+      number_of_digits_in_binary += 1
+    end
+    binary_string = ""
+    new_number = self
+    for position in (1..number_of_digits_in_binary)
+      relevant_2_power = 2**(number_of_digits_in_binary - position)
+      if new_number >= relevant_2_power
+        binary_string += "1"
+        new_number -= relevant_2_power
+      else
+        binary_string += "0"
+      end
+    end
+    binary_string
+  end
+    
   def unit_fraction
     1.0/self
   end
