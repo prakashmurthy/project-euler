@@ -5,6 +5,19 @@
 
 class Integer
   
+  def is_1to9_pandigital?
+    return false if (self.to_s =~ /1/).nil?
+    return false if (self.to_s =~ /2/).nil?
+    return false if (self.to_s =~ /3/).nil?
+    return false if (self.to_s =~ /4/).nil?
+    return false if (self.to_s =~ /5/).nil?
+    return false if (self.to_s =~ /6/).nil?
+    return false if (self.to_s =~ /7/).nil?
+    return false if (self.to_s =~ /8/).nil?
+    return false if (self.to_s =~ /9/).nil?
+    return true
+  end
+  
   def palindrome? 
     reverse_number = self.to_s.reverse.to_i
     reverse_number == self

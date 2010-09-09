@@ -2,20 +2,7 @@
 # Solution to problem number 38 on Project Euler
 # http://projecteuler.net/index.php?section=problems&id=38
 
-class Integer
-  def is_1to9_pandigital?
-    return false if (self.to_s =~ /1/).nil?
-    return false if (self.to_s =~ /2/).nil?
-    return false if (self.to_s =~ /3/).nil?
-    return false if (self.to_s =~ /4/).nil?
-    return false if (self.to_s =~ /5/).nil?
-    return false if (self.to_s =~ /6/).nil?
-    return false if (self.to_s =~ /7/).nil?
-    return false if (self.to_s =~ /8/).nil?
-    return false if (self.to_s =~ /9/).nil?
-    return true
-  end
-end
+require "../lib/integer_functions"
 
 # puts "123456789.is_1to9_pandigital? evaluates to #{123456789.is_1to9_pandigital?}"
 # puts "123456780.is_1to9_pandigital? evaluates to #{123456780.is_1to9_pandigital?}"
