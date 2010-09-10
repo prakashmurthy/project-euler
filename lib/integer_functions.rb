@@ -5,6 +5,14 @@
 
 class Integer
   
+  def reverse
+    self.to_s.reverse.to_i
+  end
+  
+  def has_only_odd_digits?
+    self.to_s[/[02468]/].nil?
+  end
+  
   def is_1to9_pandigital?
     return false if (self.to_s =~ /1/).nil?
     return false if (self.to_s =~ /2/).nil?
