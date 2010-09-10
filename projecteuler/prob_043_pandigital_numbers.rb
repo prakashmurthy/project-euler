@@ -2,7 +2,6 @@
 # Solution to problem number 43 on Project Euler
 # http://projecteuler.net/index.php?section=problems&id=43
 
-# find and print all permutations of a list
 start_time = Time.new
 
 class Integer
