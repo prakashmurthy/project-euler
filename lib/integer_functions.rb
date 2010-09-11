@@ -5,6 +5,37 @@
 
 class Integer
   
+  def bouncy?
+    self_str = self.to_s
+    length = self_str.length
+    for index in 1..(length-2)
+      #puts self_str[(index - 1), 1]
+      number_a = self_str[(index - 1),1].to_i 
+      number_b = self_str[index,1].to_i
+      number_c = self_str[(index + 1),1].to_i
+      if ((number_a - number_b) > 0)
+        first_direction = "decreasing"
+      elsif ((number_a - number_b) == 0)
+        first_direction = "neutral"
+      else 
+        first_direction = "increasing"
+      end
+      puts "first_direction is #{first_direction}" # "decreasing", "neutral" or "increasing"
+      
+      if ((number_b - number_c) > 0)
+        next_direction = "decreasing"
+      elsif ((number_c - number_c) == 0)
+        next_direction = "neutral"
+      else 
+        next_direction = "increasing"
+      end
+      puts "next_direction is #{next_direction}" # "decreasing", "neutral" or "increasing"
+      
+      return true if ((first_direction != next_direction) and (first_direction != "neutral") and (next_direction != "neutral"))
+    end
+    false
+  end
+  
   def reverse
     self.to_s.reverse.to_i
   end
