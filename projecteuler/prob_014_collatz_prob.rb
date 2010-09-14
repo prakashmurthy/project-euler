@@ -6,7 +6,7 @@ def length_of_sequence(number)
   number_array = []
   number_array << number
   while true
-    if number.even?
+    if (number.modulo(2) == 0)
       number = number / 2
     else
       number = 3 * number + 1
