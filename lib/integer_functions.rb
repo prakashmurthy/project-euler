@@ -5,56 +5,69 @@
 
 class Integer
   
-  def bouncy?
-    self_str = self.to_s
-    length = self_str.length
-    for index in 1..(length-2)
-      #puts self_str[(index - 1), 1]
-      number_a = self_str[(index - 1),1].to_i 
-      number_b = self_str[index,1].to_i
-      number_c = self_str[(index + 1),1].to_i
-      if ((number_a - number_b) > 0)
-        first_direction = "decreasing"
-      elsif ((number_a - number_b) == 0)
-        first_direction = "neutral"
-      else 
-        first_direction = "increasing"
-      end
-      puts "first_direction is #{first_direction}" # "decreasing", "neutral" or "increasing"
-      
-      if ((number_b - number_c) > 0)
-        next_direction = "decreasing"
-      elsif ((number_c - number_c) == 0)
-        next_direction = "neutral"
-      else 
-        next_direction = "increasing"
-      end
-      puts "next_direction is #{next_direction}" # "decreasing", "neutral" or "increasing"
-      
-      return true if ((first_direction != next_direction) and (first_direction != "neutral") and (next_direction != "neutral"))
-    end
-    false
-  end
-  
   def reverse
     self.to_s.reverse.to_i
   end
-  
+   
   def has_only_odd_digits?
     self.to_s[/[02468]/].nil?
   end
   
+  
+  def bouncy?
+      self_str = self.to_s
+      length = self_str.length
+      downward_flag = upward_flag = false
+      for index in 1..(length-2)
+        #puts self_str[(index - 1), 1]
+        number_a = self_str[(index - 1),1].to_i 
+        number_b = self_str[index,1].to_i
+        number_c = self_str[(index + 1),1].to_i
+        if ((number_a - number_b) > 0)
+          first_direction = "decreasing"
+          downward_flag = true
+        elsif ((number_a - number_b) == 0)
+          first_direction = "neutral"
+        else 
+          first_direction = "increasing"
+          upward_flag = true
+        end
+        #puts "first_direction is #{first_direction}; downward_flag is #{downward_flag} & upward_flag is #{upward_flag}." # "decreasing", "neutral" or "increasing"
+        #puts
+
+        if ((number_b - number_c) > 0)
+          next_direction = "decreasing"
+          downward_flag = true
+        elsif ((number_b - number_c) == 0)
+          next_direction = "neutral"
+        else 
+          next_direction = "increasing"
+          upward_flag = true
+        end
+        #puts "next_direction is #{next_direction}; downward_flag is #{downward_flag} & upward_flag is #{upward_flag}." # "decreasing", "neutral" or "increasing"
+        #puts
+
+        return true if (downward_flag and upward_flag)
+      end
+      false
+    end
+    
+  # def is_1to9_pandigital?
+  #   return false if (self.to_s =~ /1/).nil?
+  #   return false if (self.to_s =~ /2/).nil?
+  #   return false if (self.to_s =~ /3/).nil?
+  #   return false if (self.to_s =~ /4/).nil?
+  #   return false if (self.to_s =~ /5/).nil?
+  #   return false if (self.to_s =~ /6/).nil?
+  #   return false if (self.to_s =~ /7/).nil?
+  #   return false if (self.to_s =~ /8/).nil?
+  #   return false if (self.to_s =~ /9/).nil?
+  #   return true
+  # end
+  
   def is_1to9_pandigital?
     return false if (self.to_s =~ /1/).nil?
-    return false if (self.to_s =~ /2/).nil?
-    return false if (self.to_s =~ /3/).nil?
-    return false if (self.to_s =~ /4/).nil?
-    return false if (self.to_s =~ /5/).nil?
-    return false if (self.to_s =~ /6/).nil?
-    return false if (self.to_s =~ /7/).nil?
-    return false if (self.to_s =~ /8/).nil?
-    return false if (self.to_s =~ /9/).nil?
-    return true
+    self.to_s.split(//).sort.join == "123456789"
   end
   
   def palindrome? 
