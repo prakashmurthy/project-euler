@@ -5,6 +5,33 @@
 
 class Integer
   
+  def proper_divisors
+    i = 1
+    divisors_array = []
+  
+    while i < self
+      #puts "Came here with i = #{i}"
+      if self.modulo(i) == 0
+        divisors_array.push(i)
+      end
+    
+      if ((i >= (self/2)) and (i < self))
+        i = self
+      else
+        i = i + 1
+      end
+  
+    end
+    divisors_array
+  end
+
+  def sum_of_proper_divisors
+    divisors = self.proper_divisors
+    total = 0
+    divisors.each {|num| total = total + num}
+    total
+  end
+  
   def reverse
     self.to_s.reverse.to_i
   end
