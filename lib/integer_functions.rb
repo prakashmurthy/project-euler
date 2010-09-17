@@ -5,6 +5,80 @@
 
 class Integer
   
+  def proper_divisors_hash
+    puts "proper_divisors_hash: STARTED\n\n"
+    proper_divs = Hash.new(Array.new())
+    (1..self).each do |number|
+      for multiplier in (2..(self/number))
+        proper_divs[number * multiplier] += [number]
+      end
+      puts "proper_divisors_hash: Now processing #{number}; Time spent is #{(Time.now - $start_time) / 60 } minutes\n" if ((number % (self/1_000)).zero? and (self > 10_000))
+    end
+    puts "proper_divisors_hash: COMPLETED\n\n"
+    proper_divs
+  end
+  
+  def sum_of_proper_divisors_hash
+    puts "sum_of_proper_divisors_hash: STARTED\n\n"
+    proper_divs_sums = Hash.new(0)
+    divisors_hash = self.proper_divisors_hash
+    divisors_hash.sort.each do |key, value|
+      proper_divs_sums[key] = value.inject(0) {|sum, element| sum.to_i + element.to_i }
+      puts "sum_of_proper_divisors_hash: Now processing #{key}; Time spent is #{(Time.now - $start_time) / 60 } minutes\n" if ((key % (self/1_000)).zero? and (self > 10_000))
+    end
+    puts "sum_of_proper_divisors_hash: COMPLETED\n\n"
+    proper_divs_sums
+  end
+  
+  def amicable_chain
+    # case 1: sum of proper divisor == number (not amicable; perfect number)
+    # case 2: chain ends in 1 (not amicable)
+    # case 3: chain ends in first number (amicable)
+    # case 4: chain ends in a number greater than MAX_NUMBER (which translates to end of the chain being 0) (not amicable as per this definition)
+    # case 5: chain repeats in multiples - not necessarily with the first number (Eg: 562, 282, 220, 282, 220...)
+    empty_array = []
+    amicable_array = []
+    number = self
+    amicable_array << number ## Starting the array with the original number 
+    while true 
+      next_number = $sum_of_proper_divs[number]
+      #puts "Number : #{number}; next_number: #{next_number}\n"
+      if (next_number == 1)
+        #puts "The chain for #{self} ends in 1. Not an amicable number.\n\n" # case 1
+        break
+      end
+      if (next_number == 0)
+        #puts "One of the elements of the chain for #{self} is greater than #{MAX_NUMBER}. Not an amicable number.\n\n" # case 4
+        break
+      end
+      if amicable_array.last == next_number
+        #puts "Repeating cycle with single element. Not an amicable number\n\n" # case 2
+        break
+      end
+      
+      index = 1
+      repeating_cycle = false
+      while index < amicable_array.length
+        if next_number == amicable_array[index]
+          repeating_cycle = true
+          break
+        end
+        index += 1
+      end
+      if repeating_cycle
+        #puts "Repeating cycle. Not an amicable number\n\n" # case 5
+        break
+      end
+      
+      if next_number == amicable_array[0]
+        return amicable_array                      ## case 3
+      end
+      amicable_array << next_number
+      number = next_number
+    end
+    empty_array # return empty array in case the number is not amicable. (case 1 & case 2)
+  end
+  
   def proper_divisors
     i = 1
     divisors_array = []
