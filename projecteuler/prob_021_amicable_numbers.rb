@@ -20,7 +20,7 @@ end
 
 total = 0
 amicable_numbers_array.each do |num|
-  puts num
+  puts "#{num} is an Amicable number.\n"
   total = total + num
 end
 puts "The total of amicable numbers is #{total}"
