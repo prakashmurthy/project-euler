@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-# Solution to problem number 72 on Project Euler
-# http://projecteuler.net/index.php?section=problems&id=72
-# require 'mathn'
-# require 'prime'
+# Solution to problem number 125 on Project Euler
+# http://projecteuler.net/index.php?section=problems&id=125
 
 require "../lib/integer_functions.rb"
  
