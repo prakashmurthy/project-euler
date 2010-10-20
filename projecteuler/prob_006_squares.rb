@@ -10,12 +10,19 @@ class Problem006
   end
   
   def Problem006.square_of_sums(max_number=10)
-    sum = (1..max_number).inject { |total, number| total + number }
-    sum**2
+    ((1..max_number).inject { |total, number| total + number })**2
   end
+  
+  def Problem006.difference(max_number=10)
+    Problem006.square_of_sums(max_number) - Problem006.sum_of_squares(max_number)
+  end
+  
 end
 
 if __FILE__ == $0
   puts Problem006.sum_of_squares(10)
   puts Problem006.square_of_sums(10)
+  puts Problem006.difference(10)
+  
+  puts Problem006.difference(100) # Final answer
 end
