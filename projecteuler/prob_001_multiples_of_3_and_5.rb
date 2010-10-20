@@ -13,11 +13,10 @@
 # puts "#{total} is the sum of all natural numbers below #{MAX_NUMBER} that are multiples of 3 or 5."
 
 class Problem001
-  MAX_NUMBER = 10
   
-  def Problem001.answer
+  def Problem001.answer(max_number=10)
     total = 0
-    (1...MAX_NUMBER).each do |number|
+    (1...max_number).each do |number|
       total += number if (number % 3).zero? or (number % 5).zero?
     end
     total
@@ -25,4 +24,6 @@ class Problem001
   
 end
 
-puts Problem001.answer
+if __FILE__ == $0
+  puts Problem001.answer(1000)
+end
