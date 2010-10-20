@@ -17,4 +17,12 @@ class TestProblem006 < Test::Unit::TestCase
     assert_equal Problem006.square_of_sums(10), 3025, "Square of sums for numbers less than or equal to 10 should be 3025"
   end
   
+  def test_difference_when_max_number_is_10
+    assert_equal Problem006.difference(10), 2640, "Difference between Square of sums and Sum of squares for numbers than or equal to 10 is 2640"
+  end
+  
+  def test_difference_when_max_number_is_100
+    assert_equal Problem006.difference(100), 25164150, "Difference between Square of sums and Sum of squares for numbers than or equal to 100 is <>"
+  end
+  
 end
