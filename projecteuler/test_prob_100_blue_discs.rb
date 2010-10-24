@@ -13,8 +13,8 @@ class TestBlueDiscs < Test::Unit::TestCase
   
   def test_for_total_of_22
     assert_equal BagOfDiscs.combination_with_half_probability( 22 ) , false
-  end
-  
+  end 
+
   def test_for_total_of_120
     assert_equal BagOfDiscs.combination_with_half_probability( 120 ) , 85
   end
@@ -23,7 +23,11 @@ class TestBlueDiscs < Test::Unit::TestCase
     assert_equal BagOfDiscs.next_combination_with_half_probability( 22 ) , 85
   end
   
-  def test_for_total_greater_than_10_power_of_12
-    assert_equal BagOfDiscs.next_combination_with_half_probability( 10**12 ) , 707106802629
+  def test_for_total_of_1000000030324
+    assert_equal BagOfDiscs.combination_with_half_probability( 1000000030324 ) , false
   end
+    
+  # def test_for_total_greater_than_10_power_of_12
+  #   assert_equal BagOfDiscs.next_combination_with_half_probability( 10**12 ) , 707106783028
+  # end
 end
