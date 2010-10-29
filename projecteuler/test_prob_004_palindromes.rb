@@ -13,5 +13,13 @@ class TestProblem004 < Test::Unit::TestCase
     assert_equal Problem004::palindrome?(123) , false
     assert_equal Problem004::palindrome?(12321) , true
   end
-    
+  
+  def test_max_palindrome_with_two_digits
+    assert_equal 9009, Problem004::max_palindrome(2) 
+  end
+  
+  def test_max_palindrome_with_three_digits
+    assert_equal 906609, Problem004::max_palindrome(3) 
+  end
+  
 end
