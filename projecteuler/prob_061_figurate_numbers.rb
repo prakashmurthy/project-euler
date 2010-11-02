@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 # Solution to problem number 61 on Project Euler
 # http://projecteuler.net/index.php?section=problems&id=61
-# require 'mathn'
-# require 'prime'
+
 start_time = Time.new
 puts "Starting up 3... 2... 1... GOOOOOOOOOO!\n\n"
 
