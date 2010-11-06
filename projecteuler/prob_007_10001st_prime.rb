@@ -7,7 +7,7 @@ class Problem007
   def Problem007.nth_prime(number)
     nth_prime = 1
     Prime.each_with_index do |prime, index|
-      puts "prime : #{prime}; index : #{index}"
+      # puts "prime : #{prime}; index : #{index}"
       nth_prime = prime
       break if index + 1 == number
     end
@@ -17,4 +17,5 @@ end
 
 if __FILE__ == $0
   puts "The 6th prime number is #{Problem007.nth_prime(6)}"
+  puts "The 10001th prime number is #{Problem007.nth_prime(10001)}"
 end

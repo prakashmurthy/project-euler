@@ -11,4 +11,8 @@ class TestProblem007 < Test::Unit::TestCase
   def test_6th_prime
     assert_equal 13, Problem007.nth_prime(6)
   end
+  
+  def test_10001th_prime
+    assert_equal 104743, Problem007.nth_prime(10001)
+  end
 end
