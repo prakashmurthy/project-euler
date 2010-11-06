@@ -14,7 +14,7 @@ class TestProblem001 < Test::Unit::TestCase
   end
     
   def test_is_answer_23_when_max_number_is_1000
-    assert_equal Problem001.answer(233168), 23
+    assert_equal Problem001.answer(233168), 12685652714
   end
   
 end
