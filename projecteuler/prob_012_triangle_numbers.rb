@@ -2,6 +2,8 @@
 # Solution to Problem # 12 on Project Euler
 # http://projecteuler.net/index.php?section=problems&id=12
 
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "integer_functions"))
+
 class TriangleNumbers
   def initialize 
     @index = 0
@@ -13,17 +15,6 @@ class TriangleNumbers
     @triangle_number += @index
   end
   
-end
-
-class Integer
-  
-  def number_of_divisors
-    count = 0
-    (1..Math.sqrt(self)).each do |number|
-      count += 1 if (self % number).zero?
-    end
-    count *= 2
-  end
 end
        
 if __FILE__ == $0
@@ -39,7 +30,7 @@ if __FILE__ == $0
     break if divisor_count > max_divisors
     puts "Processing #{count}th Triangle number : #{next_triangle_number}." if (count % 1000).zero?
   end
-  puts "The #{count}th Triangle number is #{next_triangle_number}, and it has #{divisor_count} divisors."
+  puts "\n\nThe #{count}th Triangle number is #{next_triangle_number}, and it has #{divisor_count} divisors."
   puts "\n\nTime spent is #{(Time.now - start_time) / 60 } minutes"
 end
 
@@ -59,6 +50,7 @@ end
 # Processing 10000th Triangle number : 50005000.
 # Processing 11000th Triangle number : 60505500.
 # Processing 12000th Triangle number : 72006000.
+#
 # The 12375th Triangle number is 76576500, and it has 576 divisors.
 # 
 # 

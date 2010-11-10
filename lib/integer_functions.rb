@@ -5,6 +5,14 @@
 
 class Integer
   
+  def number_of_divisors
+    count = 0
+    (1..Math.sqrt(self)).each do |number|
+      count += 1 if (self % number).zero?
+    end
+    count *= 2
+  end
+  
   def proper_divisors_hash
     puts "proper_divisors_hash: STARTED\n\n"
     proper_divs = Hash.new(Array.new())
