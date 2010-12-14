@@ -14,6 +14,15 @@ class Integer
     return false if self.to_s.length < 9
     self.to_s[-9..-1].split(//).sort.join == "123456789"
   end
+  
+  def beginning_1to4_pandigital?
+    self.to_s[0..3].split(//).sort.join == "1234"
+  end
+  
+  def ending_1to4_pandigital?
+    return false if self.to_s.length < 9
+    self.to_s[-4..-1].split(//).sort.join == "1234"
+  end
 end
 
 i = 0
@@ -26,10 +35,24 @@ while true
   k = j
   j = i + j
   i = k
+  
+  # if j.beginning_1to4_pandigital? 
+  #   puts "\n\nThe #{count + 1}th Fibonacci number has first four digits as 1-4 pandigital.\n\n"
+  # end
+  # if j.ending_1to4_pandigital? 
+  #   puts "\n\nThe #{count + 1}th Fibonacci number has last four digits as 1-4 pandigital.\n\n"
+  # end
+  # break if j.ending_1to4_pandigital? && j.beginning_1to4_pandigital?
 
-  break if j.ending_1to9_pandigital? and j.beginning_1to9_pandigital?
+  if j.beginning_1to9_pandigital? 
+    puts "\n\nThe #{count + 1}th Fibonacci number has first nine digits as 1-9 pandigital.\n\n"
+  end
+  if j.ending_1to9_pandigital? 
+    puts "\n\nThe #{count + 1}th Fibonacci number has last nine digits as 1-9 pandigital.\n\n"
+  end
+  break if j.ending_1to9_pandigital? && j.beginning_1to9_pandigital?
 end
 
-puts "The #{count + 1}th Fibonacci number is 1-9 pandigital."
+puts "The #{count + 1}th Fibonacci number is 1-9 pandigital on both ends."
 # is_1to9_pandigital?
 puts "\n\nTime spent is #{(Time.now - start_time) / 60 }  minutes"
