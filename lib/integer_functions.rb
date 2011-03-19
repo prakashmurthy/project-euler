@@ -11,6 +11,8 @@ class Integer
       count += 1 if (self % number).zero?
     end
     count *= 2
+    count -= 1 if Math.sqrt(self).to_i * Math.sqrt(self).to_i  == self 
+    return count
   end
   
   def proper_divisors_hash
