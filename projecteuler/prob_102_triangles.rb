@@ -65,10 +65,8 @@ if __FILE__ == $0
     point_c = [input[0][4], input[0][5]]
     
     triangle = TriangleAndPoint.new(point_a, point_b, point_c)
-    if triangle.contains_origin
-      puts "Triangle number #{index} contains the origin."
-      number_of_triangles_containing_origin += 1 
-    end
+    
+    number_of_triangles_containing_origin += 1 if triangle.contains_origin 
   end
   
   puts "\n\nThere are #{number_of_triangles_containing_origin} triangles containing the origin in the sample file."
