@@ -20,15 +20,7 @@ class Triangle
   attr_reader :area
   
   def initialize(point_a, point_b, point_c)
-    @point_a = point_a
-    @point_b = point_b
-    @point_c = point_c
-    
-    area
-  end
-
-  def area
-    @area = ( (@point_a[0] * (@point_b[1] - @point_c[1]) + @point_b[0] * (@point_c[1] - @point_a[1]) +  @point_c[0] * (@point_a[1] - @point_b[1]) ) * 1.0 / 2.0 ).abs
+    @area = ( (point_a[0] * (point_b[1] - point_c[1]) + point_b[0] * (point_c[1] - point_a[1]) +  point_c[0] * (point_a[1] - point_b[1]) ) * 1.0 / 2.0 ).abs
   end
 end
 
@@ -65,5 +57,5 @@ if __FILE__ == $0
     number_of_triangles_containing_origin += 1 if triangle.contains_origin 
   end
   
-  puts "\n\nThere are #{number_of_triangles_containing_origin} triangles containing the origin in the sample file."
+  puts "There are #{number_of_triangles_containing_origin} triangles containing the origin in the sample file."
 end
