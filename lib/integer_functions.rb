@@ -2,8 +2,22 @@
 #  1. return the unit fraction, and 
 #  2. the length of the recurring cycle 
 #  3. the integer in words
+require 'prime'
 
 class Integer
+  
+  def distinct_prime_factors
+    prime_factors = []
+    number = self
+    Prime.each do |prime_no|
+      if (number % prime_no).zero?
+        prime_factors << prime_no
+        number = number / prime_no while (number % prime_no).zero?
+      end
+      break if number == 1
+    end
+    prime_factors
+  end
   
   def number_of_divisors
     count = 0
