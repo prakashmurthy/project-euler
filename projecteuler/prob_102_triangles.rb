@@ -3,67 +3,74 @@
 # http://projecteuler.net/index.php?section=problems&id=102
 # prob_102_triangles.rb
 
-class RandomTriangles 
+#
+#  Solved using the formula for area of triangle from vertices 
+#  given in http://www.mathopenref.com/coordtrianglearea.html
+# 
+
+#
+#  If the origin is within the triangle, then the area of three triangles
+#  formed by the three sides with the origin will be equal to the 
+#  area of the triangle in question. 
+#
+
+require 'open-uri'
+
+class Triangle
+  attr_reader :area, :comp1, :comp2, :comp3, :area2
   
-  # Given the co-ordinates of two points, find the length of the line.
-  def RandomTriangles.length_of_line(point1, point2=[0,0])
-    Math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
-  end
-  
-  # Distance to origin
-  def RandomTriangles.distance_to_origin(point)
-    RandomTriangles.length_of_line(point)
-  end
-  
-  def RandomTriangles.line_include_point?( line_point_x, line_point_y, point )
-    RandomTriangles.length_of_line(line_point_x, line_point_y) == RandomTriangles.length_of_line(line_point_x, point) + RandomTriangles.length_of_line(line_point_y, point)
-  end
-  
-  def RandomTriangles.y_intercept(point1, point2)
-    point1_point2 = RandomTriangles.length_of_line(point1, point2)
+  def initialize(point_a, point_b, point_c)
+    @point_a = point_a
+    @point_b = point_b
+    @point_c = point_c
     
+    area
   end
-  ## The following logic blown to pieces as the second example doesn't fit the bill.
-  # For a triangle to include the origin, the sum of lenghts of the sides should be greater than the sum of lengths of the distances to origin
-  # def RandomTriangles.include_origin?(point1, point2, point3)
-  #   point1_point2 = RandomTriangles.length_of_line(point1, point2)
-  #   point2_point3 = RandomTriangles.length_of_line(point2, point3)
-  #   point3_point1 = RandomTriangles.length_of_line(point3, point1)
-  #   
-  #   point1_origin = RandomTriangles.distance_to_origin(point1)
-  #   point2_origin = RandomTriangles.distance_to_origin(point2)
-  #   point3_origin = RandomTriangles.distance_to_origin(point3)
-  #   
-  #   point1_point2 + point2_point3 + point3_point1 >= point1_origin + point2_origin + point3_origin
-  # end
-  
-  def RandomTriangles.include_origin?(point1, point2, point3)
-    
+
+  def area
+    @area = ( (@point_a[0] * (@point_b[1] - @point_c[1]) + @point_b[0] * (@point_c[1] - @point_a[1]) +  @point_c[0] * (@point_a[1] - @point_b[1]) ) * 1.0 / 2.0 ).abs
   end
 end
 
+class TriangleAndPoint
+  attr_reader :contains_origin
+  
+  def initialize(point_a, point_b, point_c)
+    origin = [0,0]
+    
+    main_triangle = Triangle.new(point_a, point_b, point_c)
+    
+    sub_triangle_1 = Triangle.new(point_a, point_b, origin)
+    sub_triangle_2 = Triangle.new(point_a, origin, point_c)
+    sub_triangle_3 = Triangle.new(origin, point_b, point_c)
+    
+    @contains_origin = ( main_triangle.area == sub_triangle_1.area + sub_triangle_2.area + sub_triangle_3.area )
+  end
+  
+end
+
 if __FILE__ == $0
-  origin = [0, 0]
+  start_time = Time.new
+  puts "Starting the program....\n\n"
   
-  # First example : A(-340,495), B(-153,-910), C(835,-947)
-  # point1 = [-340,495]
-  # point2 = [-153,-910] 
-  # point3 = [835,-947]
+  number_of_triangles_containing_origin = 0
   
-  # Second example : X(-175,41), Y(-421,-714), Z(574,-645)
-  point1 = [-175,41]
-  point2 = [-421,-714]
-  point3 = [574,-645]
-
-  point1_point2 = RandomTriangles.length_of_line(point1, point2)
-  point2_point3 = RandomTriangles.length_of_line(point2, point3)
-  point3_point1 = RandomTriangles.length_of_line(point3, point1)
-
-  puts "point1_point2 = #{point1_point2} ; point2_point3 = #{point2_point3} ; point3_point1 = #{point3_point1}\n\n"
-
-  point1_origin = RandomTriangles.length_of_line(point1, origin)
-  point2_origin = RandomTriangles.length_of_line(point2, origin)
-  point3_origin = RandomTriangles.length_of_line(point3, origin)
-  puts "point1_origin = #{point1_origin} ; point2_origin = #{point2_origin} ; point3_origin = #{point3_origin}\n\n"
-  puts "Difference is #{point1_point2 + point2_point3 + point3_point1 >= point1_origin + point2_origin + point3_point1}"
+  
+  input_file = open("http://projecteuler.net/project/triangles.txt")
+  input_file.each_with_index do |line, index|
+    input = []
+    input << line.split(',').map {|num_str| num_str.to_i}
+    point_a = [input[0][0], input[0][1]]
+    point_b = [input[0][2], input[0][3]]
+    point_c = [input[0][4], input[0][5]]
+    
+    triangle = TriangleAndPoint.new(point_a, point_b, point_c)
+    if triangle.contains_origin
+      puts "Triangle number #{index} contains the origin."
+      number_of_triangles_containing_origin += 1 
+    end
+  end
+  
+  puts "\n\nThere are #{number_of_triangles_containing_origin} triangles containing the origin in the sample file."
+  puts "\n\nTime spent is #{(Time.now - start_time) / 60 } minutes"
 end

@@ -5,37 +5,39 @@
 require File.join(File.dirname(__FILE__), "prob_102_triangles.rb")
 require "test/unit"
 
-class TestRandomTriangles < Test::Unit::TestCase
-  
-  def test_length_of_line
-    assert_equal RandomTriangles.length_of_line([0,4], [3,0])   , 5
-    assert_equal RandomTriangles.length_of_line([12,0], [0,-5]) , 13
-    assert_equal RandomTriangles.length_of_line([0,0], [3,4])   , 5
+class TestTriangles < Test::Unit::TestCase
+  def test_compute_area_with_points
+    point_a = [0,0]
+    point_b = [0,30]
+    point_c = [25,15]
+    triangle = Triangle.new(point_a, point_b, point_c)
+    assert_equal 375, triangle.area, "The area of the triangle with [0,0], [0,30] & [25,15] as vertices is 375."
   end
   
-  def test_distance_to_origin
-    assert_equal RandomTriangles.distance_to_origin([4,3])      , 5
-    assert_equal RandomTriangles.distance_to_origin([100,0])    , 100
-    assert_equal RandomTriangles.distance_to_origin([-5,-12])   , 13
+  def test_compute_area_with_points_2
+    point_a = [-340,495]
+    point_b = [-153,-910]
+    point_c = [835,-947]
+    
+    triangle = Triangle.new(point_a, point_b, point_c)
+    assert_equal 690610.5, triangle.area, "The area of the triangle with [-340,495], [-153,-910] & [835,-947] as vertices is 690610.5."
   end
   
-  def test_line_include_point
-    assert RandomTriangles.line_include_point?([0,150], [0, -234], [0, 23]   ) , "The line ([0,150], [0, -234] ) includes the point ([0, 23] )."
-    assert RandomTriangles.line_include_point?([12, 5], [-12, -5], [0, 0]    ) , "The line ([12, 5], [-12, -5] ) includes the point ([0,  0] )."
+  def test_case_1_contains_origin
+    point_a = [-340,495]
+    point_b = [-153,-910]
+    point_c = [835,-947]
+    
+    triangle = TriangleAndPoint.new(point_a, point_b, point_c)
+    assert_equal true, triangle.contains_origin, "The triangle with [-340,495], [-153,-910] & [835,-947] as vertices contains the origin."
   end
   
-  def test_include_origin_first_example
-    # First example : A(-340,495), B(-153,-910), C(835,-947) 
-    assert_equal RandomTriangles.include_origin?([-340,495], [-153,-910], [835,-947])   , true
+  def test_case_2_does_not_contain_origin
+    point_a = [-175,41]
+    point_b = [-421,-714]
+    point_c = [574,-645]
+    
+    triangle = TriangleAndPoint.new(point_a, point_b, point_c)
+    assert_equal false, triangle.contains_origin, "The triangle with [-175,41], [-421,-714] & [574,-645] as vertices does not contain the origin."
   end
-  
-  def test_include_origin_second_example
-    # Second example : X(-175,41), Y(-421,-714), Z(574,-645)
-    assert_equal RandomTriangles.include_origin?([-175,41], [-421,-714], [574,-645])    , false
-  end
-  
-  def test_y_intercept
-    assert_equal RandomTriangles.y_intercept([6,8], [-6,0]) , 4
-  end
-  
 end
