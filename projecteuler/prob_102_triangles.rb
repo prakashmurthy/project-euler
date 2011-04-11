@@ -17,7 +17,7 @@
 require 'open-uri'
 
 class Triangle
-  attr_reader :area, :comp1, :comp2, :comp3, :area2
+  attr_reader :area
   
   def initialize(point_a, point_b, point_c)
     @point_a = point_a
@@ -50,14 +50,10 @@ class TriangleAndPoint
 end
 
 if __FILE__ == $0
-  start_time = Time.new
-  puts "Starting the program....\n\n"
-  
   number_of_triangles_containing_origin = 0
-  
-  
+    
   input_file = open("http://projecteuler.net/project/triangles.txt")
-  input_file.each_with_index do |line, index|
+  input_file.each do |line|
     input = []
     input << line.split(',').map {|num_str| num_str.to_i}
     point_a = [input[0][0], input[0][1]]
@@ -70,5 +66,4 @@ if __FILE__ == $0
   end
   
   puts "\n\nThere are #{number_of_triangles_containing_origin} triangles containing the origin in the sample file."
-  puts "\n\nTime spent is #{(Time.now - start_time) / 60 } minutes"
 end
