@@ -2,7 +2,7 @@
 # Solution to problem number 125 on Project Euler
 # http://projecteuler.net/index.php?section=problems&id=125
 
-require "../lib/integer_functions.rb"
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "integer_functions"))
  
 start_time = Time.new
 puts "Starting up 3... 2... 1... GOOOOOOOOOO!\n\n"
